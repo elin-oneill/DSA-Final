@@ -83,6 +83,11 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>2.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>it.skrape</groupId>
+            <artifactId>skrapeit</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
 
 </project>

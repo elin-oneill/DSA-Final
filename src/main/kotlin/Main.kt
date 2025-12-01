@@ -1,5 +1,7 @@
 package org.example
 
+import org.example.scraping.LinkExtractor
+
 
 /**
  * ``Graph`` represents a directed graph. Taken from my Assignment 3 Code.
@@ -145,4 +147,10 @@ fun main() {
 
     val ranks = pageRank(graph)
     println(ranks)
+    /*
+    val a = LinkExtractor()
+    val search = "PageRank"
+    val graph = a.extract(search, 0)
+    println(graph.getEdges(search))
+     */
 }
