@@ -1,6 +1,8 @@
 package org.example
 
+import kotlinx.serialization.json.Json
 import org.example.scraping.LinkExtractor
+import java.io.File
 
 
 /**
@@ -139,6 +141,7 @@ fun <VertexType> pageRank(
  * Example usage of PageRank with DirectedWeightedGraph.
  */
 fun main() {
+    /*
     val graph = DirectedWeightedGraph<String>()
     graph.addEdge("A", "B", 1.0)
     graph.addEdge("B", "C", 1.0)
@@ -147,10 +150,25 @@ fun main() {
 
     val ranks = pageRank(graph)
     println(ranks)
-    /*
-    val a = LinkExtractor()
-    val search = "PageRank"
-    val graph = a.extract(search, 0)
-    println(graph.getEdges(search))
+
      */
+
+    val a = LinkExtractor()
+    val search = "Neuropathix"
+    val graph = a.extract(search, 1)
+    println("craeted graph")
+    val ranks = pageRank(graph)
+//    println(ranks)
+    val vertices = graph.getVertices()
+    val connections = mutableListOf<List<String>>()
+    for (vertex in vertices) {
+        val edges = graph.getEdges(vertex)
+        for (e in edges) {
+            connections.add(listOf(vertex, e.key))
+        }
+    }
+    File("./data/pageRanks.json").writeText(Json.encodeToString(ranks))
+    File("./data/nodes.json").writeText(Json.encodeToString(vertices))
+    File("./data/connections.json").writeText(Json.encodeToString(connections))
+
 }

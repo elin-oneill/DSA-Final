@@ -29,15 +29,17 @@ class LinkExtractor {
             }
         }
 
-        val filtered = extracted.filter { v ->
+        var filtered = extracted.filter { v ->
             v.startsWith("/wiki/") && (if (v.contains(":")) (v.contains(":_")) else true)
         }
+        filtered = filtered.slice(0..(if (filtered.size > 59) 59 else filtered.size - 1))
         filtered.forEach { v ->
             if (depth > 0) {
                 extract(v.substring(6), depth - 1)
             }
             graph.addEdge(articleName, v.substring(6), 1.0)
         }
+        println("found ${filtered.size} pages for $articleName")
         return graph
     }
 }
