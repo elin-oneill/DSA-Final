@@ -6,7 +6,7 @@ import java.io.File
 
 
 /**
- * ``Graph`` represents a directed graph. Taken from my Assignment 3 Code.
+ * ``Graph`` represents a directed graph. Taken from Elin's Assignment 3 Code.
  *
  * @param VertexType the type that represents a vertex in the graph
  */
@@ -137,11 +137,10 @@ fun <VertexType> pageRank(
     return ranks
 }
 
-/**
- * Example usage of PageRank with DirectedWeightedGraph.
- */
 fun main() {
     /*
+    Example usage of PageRank with DirectedWeightedGraph.
+
     val graph = DirectedWeightedGraph<String>()
     graph.addEdge("A", "B", 1.0)
     graph.addEdge("B", "C", 1.0)
@@ -150,15 +149,14 @@ fun main() {
 
     val ranks = pageRank(graph)
     println(ranks)
-
      */
 
+    // Real example use of PR on wikipedia articles
     val a = LinkExtractor()
     val search = "Neuropathix"
     val graph = a.extract(search, 1)
-    println("craeted graph")
+    println("Created graph.")
     val ranks = pageRank(graph)
-//    println(ranks)
     val vertices = graph.getVertices()
     val connections = mutableListOf<List<String>>()
     for (vertex in vertices) {
@@ -167,8 +165,9 @@ fun main() {
             connections.add(listOf(vertex, e.key))
         }
     }
+
+    // Converting findings to json format so it can be graphed using python
     File("./data/pageRanks.json").writeText(Json.encodeToString(ranks))
     File("./data/nodes.json").writeText(Json.encodeToString(vertices))
     File("./data/connections.json").writeText(Json.encodeToString(connections))
-
 }
